@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.IntBinaryOperator;
-import java.util.stream.Stream;
 
 public class StringOperands {
     private static final int EMPTY_SIZE = 0;
@@ -14,10 +13,14 @@ public class StringOperands {
 
     private StringOperands(final String operandsText, final String delimiterRegex) {
         if (!operandsText.isEmpty()) {
-            Arrays.stream(operandsText.split(delimiterRegex))
-                    .map(StringOperand::of)
-                    .forEach(operands::add);
+            addStringOperandsToList(operandsText, delimiterRegex);
         }
+    }
+
+    private void addStringOperandsToList(final String operandsText, final String delimiterRegex) {
+        Arrays.stream(operandsText.split(delimiterRegex))
+                .map(StringOperand::of)
+                .forEach(operands::add);
     }
 
     public static StringOperands of(final String operandsText, final String delimiterRegex) {
